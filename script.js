@@ -1,62 +1,31 @@
-const cart = [];
-const cartDrawer = document.querySelector('#cart-drawer');
-const overlay = document.querySelector('#overlay');
-const cartItems = document.querySelector('#cart-items');
-const cartCount = document.querySelector('#cart-count');
-const drawerCount = document.querySelector('#drawer-count');
-const cartTotal = document.querySelector('#cart-total');
-
-function formatPrice(value) {
-  return `${value.toFixed(2).replace('.', ',')} €`;
-}
-
-function renderCart() {
-  const count = cart.length;
-  cartCount.textContent = count;
-  drawerCount.textContent = `(${count})`;
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  cartTotal.textContent = formatPrice(total);
-
-  if (!count) {
-    cartItems.innerHTML = '<div class="empty-cart"><span>✦</span><p>Tu cesta está tranquila.<br />Añade algo bonito para el paseo.</p></div>';
-    return;
-  }
-
-  cartItems.innerHTML = cart.map((item, index) => `
-    <div class="cart-line"><span>${item.name}</span><span>${formatPrice(item.price)} <button type="button" data-remove="${index}">Quitar</button></span></div>
-  `).join('');
-  cartItems.querySelectorAll('[data-remove]').forEach((button) => {
-    button.addEventListener('click', () => {
-      cart.splice(Number(button.dataset.remove), 1);
-      renderCart();
-    });
-  });
-}
-
-function setCartOpen(isOpen) {
-  cartDrawer.classList.toggle('open', isOpen);
-  overlay.classList.toggle('open', isOpen);
-  cartDrawer.setAttribute('aria-hidden', String(!isOpen));
-}
-
-document.querySelector('#open-cart').addEventListener('click', () => setCartOpen(true));
-document.querySelector('#close-cart').addEventListener('click', () => setCartOpen(false));
-overlay.addEventListener('click', () => setCartOpen(false));
-
-document.querySelectorAll('.add-button').forEach((button) => {
-  button.addEventListener('click', () => {
-    cart.push({ name: button.dataset.product, price: Number(button.dataset.price) });
-    renderCart();
-    setCartOpen(true);
-  });
-});
-
 const menuButton = document.querySelector('#menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
 menuButton.addEventListener('click', () => mobileNav.classList.toggle('open'));
 mobileNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => mobileNav.classList.remove('open')));
 
 document.querySelectorAll('a[href="#"]').forEach((link) => link.addEventListener('click', (event) => event.preventDefault()));
+
+const servicesTrack = document.querySelector('.services-carousel .service-grid');
+const servicesPrev = document.querySelector('#services-prev');
+const servicesNext = document.querySelector('#services-next');
+
+function updateServiceArrows() {
+  servicesPrev.disabled = servicesTrack.scrollLeft <= 4;
+  servicesNext.disabled = servicesTrack.scrollLeft + servicesTrack.clientWidth >= servicesTrack.scrollWidth - 4;
+}
+
+function moveServices(direction) {
+  const firstCard = servicesTrack.querySelector('.service-card');
+  const gap = 15;
+  servicesTrack.scrollBy({ left: direction * (firstCard.offsetWidth + gap), behavior: 'smooth' });
+  window.setTimeout(updateServiceArrows, 350);
+}
+
+servicesPrev.addEventListener('click', () => moveServices(-1));
+servicesNext.addEventListener('click', () => moveServices(1));
+servicesTrack.addEventListener('scroll', updateServiceArrows, { passive: true });
+window.addEventListener('resize', updateServiceArrows);
+updateServiceArrows();
 
 const quizQuestions = [
   { text: '¿Qué situación quieres entender mejor?', options: ['Tira de la correa durante el paseo', 'Ladra cuando llega alguien', 'Le cuesta quedarse solo'] },
@@ -104,4 +73,3 @@ document.querySelectorAll('.reveal').forEach((element) => {
   observer.observe(element);
 });
 
-renderCart();
