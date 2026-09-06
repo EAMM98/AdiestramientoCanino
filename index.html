@@ -9,6 +9,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .service-card { position: relative; overflow: hidden; transform: translateZ(0); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
+    .service-card:hover { transform: perspective(800px) translateY(-10px) rotateX(2deg) scale(1.025); box-shadow: 0 22px 35px rgba(23,37,33,.16); z-index: 2; }
+    .service-card:hover .card-visual { transform: translateZ(28px) rotate(-8deg) scale(1.12); }
+    .service-card-lilac { background: #e7e0ec; }
+    .service-card-yellow { background: #f0e7ba; }
+    .service-card-mint { background: #d8e8df; }
+    .learning-tip { font-size: 10px; line-height: 1.3; color: #637168; background: rgba(255,255,255,.52); padding: 7px 9px; margin-top: 17px; max-width: 210px; }
+    .featured .learning-tip { color: #fff8f2; background: rgba(23,37,33,.15); }
+    .card-visual { display: grid; place-items: center; width: 43px; height: 43px; border-radius: 50%; font-size: 23px; background: var(--lime); color: var(--ink); box-shadow: 8px 8px 0 rgba(23,37,33,.14); transform: translateZ(0); transition: transform .35s ease; }
+    .visual-heart { background: #ffe9a7; } .visual-leash { background: #c0dcd4; } .visual-star { background: #fff0bb; } .visual-paw { background: #d8c6e2; } .visual-ball { background: #f4a878; } .visual-home { background: #b9d9cb; }
+    @media (prefers-reduced-motion: reduce) { .service-card, .card-visual { transition: none; } .service-card:hover { transform: none; } }
+  </style>
 </head>
 <body>
   <div class="announcement">Primera sesión de orientación sin coste · Reserva esta semana</div>
@@ -66,9 +79,12 @@
     <section class="services section-shell" id="servicios">
       <div class="section-heading centered reveal"><p class="eyebrow"><span></span> Cómo podemos ayudarte</p><h2>Elige el camino que<br /><i>mejor os encaje.</i></h2></div>
       <div class="service-grid">
-        <article class="service-card featured reveal"><div class="card-top"><span class="card-number">01</span><span class="card-icon">◒</span></div><h3>Sesiones<br />personalizadas</h3><p>Un plan hecho a medida para entender qué necesita tu familia.</p><a href="#contacto" class="card-link">Ver sesiones <span>↗</span></a></article>
-        <article class="service-card reveal reveal-delay"><div class="card-top"><span class="card-number">02</span><span class="card-icon">⌁</span></div><h3>Paseos con<br />propósito</h3><p>Conecta, explora y aprende a disfrutar de cada paseo.</p><a href="#contacto" class="card-link">Descubrir paseos <span>↗</span></a></article>
-        <article class="service-card reveal reveal-delay-2"><div class="card-top"><span class="card-number">03</span><span class="card-icon">✹</span></div><h3>Clases para<br />cachorros</h3><p>Los primeros meses son una aventura. Acompáñala bien.</p><a href="#contacto" class="card-link">Ver cachorros <span>↗</span></a></article>
+        <article class="service-card featured reveal"><div class="card-top"><span class="card-number">01 · VÍNCULO</span><span class="card-icon card-visual visual-heart">♥</span></div><h3>Sesiones<br />personalizadas</h3><p>Un plan hecho a medida para entender qué necesita tu familia.</p><div class="learning-tip">Aprende: una señal, una recompensa.</div><a href="#contacto" class="card-link">Ver sesiones <span>↗</span></a></article>
+        <article class="service-card reveal reveal-delay"><div class="card-top"><span class="card-number">02 · CALMA</span><span class="card-icon card-visual visual-leash">⌁</span></div><h3>Paseos con<br />propósito</h3><p>Conecta, explora y aprende a disfrutar de cada paseo.</p><div class="learning-tip">Practica: parar también es avanzar.</div><a href="#contacto" class="card-link">Descubrir paseos <span>↗</span></a></article>
+        <article class="service-card reveal reveal-delay-2"><div class="card-top"><span class="card-number">03 · INICIO</span><span class="card-icon card-visual visual-star">✦</span></div><h3>Clases para<br />cachorros</h3><p>Los primeros meses son una aventura. Acompáñala bien.</p><div class="learning-tip">Descubre: socializar sin saturar.</div><a href="#contacto" class="card-link">Ver cachorros <span>↗</span></a></article>
+        <article class="service-card service-card-lilac reveal"><div class="card-top"><span class="card-number">04 · CONFIANZA</span><span class="card-icon card-visual visual-paw">✥</span></div><h3>Gestión<br />emocional</h3><p>Herramientas para acompañar miedos, nervios y reactividad.</p><div class="learning-tip">Aprende: bajar la intensidad primero.</div><a href="#contacto" class="card-link">Ver programa <span>↗</span></a></article>
+        <article class="service-card service-card-yellow reveal reveal-delay"><div class="card-top"><span class="card-number">05 · EQUIPO</span><span class="card-icon card-visual visual-ball">●</span></div><h3>Juegos de<br />olfato</h3><p>Actividades sencillas para estimular su mente dentro y fuera.</p><div class="learning-tip">Prueba: buscar cansa más que correr.</div><a href="#contacto" class="card-link">Aprender jugando <span>↗</span></a></article>
+        <article class="service-card service-card-mint reveal reveal-delay-2"><div class="card-top"><span class="card-number">06 · HOGAR</span><span class="card-icon card-visual visual-home">⌂</span></div><h3>Convivencia<br />en casa</h3><p>Rutinas para descansar, recibir visitas y compartir espacios.</p><div class="learning-tip">Ordena: anticipar da seguridad.</div><a href="#contacto" class="card-link">Mejorar en casa <span>↗</span></a></article>
       </div>
     </section>
 
