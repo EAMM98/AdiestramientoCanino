@@ -11,16 +11,22 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .service-card { position: relative; overflow: hidden; transform: translateZ(0); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
-    .service-card:hover { transform: perspective(800px) translateY(-10px) rotateX(2deg) scale(1.025); box-shadow: 0 22px 35px rgba(23,37,33,.16); z-index: 2; }
-    .service-card:hover .card-visual { transform: translateZ(28px) rotate(-8deg) scale(1.12); }
+    .service-card::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(23,37,33,.2), rgba(23,37,33,.78)); pointer-events: none; }
+    .service-card > :not(.service-card-image) { position: relative; z-index: 2; }
+    .service-card h3, .service-card p, .service-card .card-number { color: #fff; }
+    .service-card:hover, .service-card:focus-within { transform: perspective(800px) translateY(-10px) rotateX(2deg) scale(1.025); box-shadow: 0 24px 40px rgba(23,37,33,.24); z-index: 2; }
+    .service-card:hover .card-visual, .service-card:focus-within .card-visual { transform: translateZ(28px) rotate(-8deg) scale(1.12); }
+    .service-card-image { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--blue); }
+    .service-card-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .45s ease, filter .35s ease; }
+    .service-card:hover .service-card-image img, .service-card:focus-within .service-card-image img { transform: scale(1.08); filter: saturate(1.12) contrast(1.04); }
     .service-card-lilac { background: #e7e0ec; }
     .service-card-yellow { background: #f0e7ba; }
     .service-card-mint { background: #d8e8df; }
-    .learning-tip { font-size: 10px; line-height: 1.3; color: #637168; background: rgba(255,255,255,.52); padding: 7px 9px; margin-top: 17px; max-width: 210px; }
-    .featured .learning-tip { color: #fff8f2; background: rgba(23,37,33,.15); }
+    .service-card p { color: rgba(255,255,255,.88); }
+    .featured p { color: rgba(255,255,255,.88); }
     .card-visual { display: grid; place-items: center; width: 43px; height: 43px; border-radius: 50%; font-size: 23px; background: var(--lime); color: var(--ink); box-shadow: 8px 8px 0 rgba(23,37,33,.14); transform: translateZ(0); transition: transform .35s ease; }
     .visual-heart { background: #ffe9a7; } .visual-leash { background: #c0dcd4; } .visual-star { background: #fff0bb; } .visual-paw { background: #d8c6e2; } .visual-ball { background: #f4a878; } .visual-home { background: #b9d9cb; }
-    @media (prefers-reduced-motion: reduce) { .service-card, .card-visual { transition: none; } .service-card:hover { transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .service-card, .card-visual, .service-card-image img { transition: none; } .service-card:hover, .service-card:focus-within { transform: none; } }
   </style>
   <style>
     :root { --ink: #193a39; --cream: #fff8ef; --paper: #fffdf9; --lime: #f3cf55; --coral: #ef765d; --blue: #d9f0ed; --line: #d7e5df; --muted: #607773; }
@@ -92,12 +98,12 @@
     <section class="services section-shell" id="servicios">
       <div class="section-heading centered reveal"><p class="eyebrow"><span></span> Cómo podemos ayudarte</p><h2>Elige el camino que<br /><i>mejor os encaje.</i></h2></div>
       <div class="services-carousel"><button class="service-arrow service-arrow-prev" id="services-prev" type="button" aria-label="Ver servicios anteriores">←</button><div class="service-grid">
-        <article class="service-card featured reveal"><div class="card-top"><span class="card-number">01 · VÍNCULO</span><span class="card-icon card-visual visual-heart">♥</span></div><h3>Sesiones<br />personalizadas</h3><p>Un plan hecho a medida para entender qué necesita tu familia.</p><div class="learning-tip">Aprende: una señal, una recompensa.</div><a href="#contacto" class="card-link">Ver sesiones <span>↗</span></a></article>
-        <article class="service-card reveal reveal-delay"><div class="card-top"><span class="card-number">02 · CALMA</span><span class="card-icon card-visual visual-leash">⌁</span></div><h3>Paseos con<br />propósito</h3><p>Conecta, explora y aprende a disfrutar de cada paseo.</p><div class="learning-tip">Practica: parar también es avanzar.</div><a href="#contacto" class="card-link">Descubrir paseos <span>↗</span></a></article>
-        <article class="service-card reveal reveal-delay-2"><div class="card-top"><span class="card-number">03 · INICIO</span><span class="card-icon card-visual visual-star">✦</span></div><h3>Clases para<br />cachorros</h3><p>Los primeros meses son una aventura. Acompáñala bien.</p><div class="learning-tip">Descubre: socializar sin saturar.</div><a href="#contacto" class="card-link">Ver cachorros <span>↗</span></a></article>
-        <article class="service-card service-card-lilac reveal"><div class="card-top"><span class="card-number">04 · CONFIANZA</span><span class="card-icon card-visual visual-paw">✥</span></div><h3>Gestión<br />emocional</h3><p>Herramientas para acompañar miedos, nervios y reactividad.</p><div class="learning-tip">Aprende: bajar la intensidad primero.</div><a href="#contacto" class="card-link">Ver programa <span>↗</span></a></article>
-        <article class="service-card service-card-yellow reveal reveal-delay"><div class="card-top"><span class="card-number">05 · EQUIPO</span><span class="card-icon card-visual visual-ball">●</span></div><h3>Juegos de<br />olfato</h3><p>Actividades sencillas para estimular su mente dentro y fuera.</p><div class="learning-tip">Prueba: buscar cansa más que correr.</div><a href="#contacto" class="card-link">Aprender jugando <span>↗</span></a></article>
-        <article class="service-card service-card-mint reveal reveal-delay-2"><div class="card-top"><span class="card-number">06 · HOGAR</span><span class="card-icon card-visual visual-home">⌂</span></div><h3>Convivencia<br />en casa</h3><p>Rutinas para descansar, recibir visitas y compartir espacios.</p><div class="learning-tip">Ordena: anticipar da seguridad.</div><a href="#contacto" class="card-link">Mejorar en casa <span>↗</span></a></article>
+        <article class="service-card featured reveal"><div class="service-card-image"><img src="imagenes/PaseoPersonalisado.png" alt="Sesión personalizada de adiestramiento" /></div><div class="card-top"><span class="card-number">01 · VÍNCULO</span><span class="card-icon card-visual visual-heart">♥</span></div><h3>Sesiones<br />personalizadas</h3><p>Un plan hecho a medida para entender qué necesita tu familia.</p></article>
+        <article class="service-card reveal reveal-delay"><div class="service-card-image"><img src="imagenes/Paseo.png" alt="Paseo con propósito junto a un perro" /></div><div class="card-top"><span class="card-number">02 · CALMA</span><span class="card-icon card-visual visual-leash">⌁</span></div><h3>Paseos con<br />propósito</h3><p>Conecta, explora y aprende a disfrutar de cada paseo.</p></article>
+        <article class="service-card reveal reveal-delay-2"><div class="service-card-image"><img src="imagenes/ClaseCachorros.png" alt="Clase de adiestramiento para cachorros" /></div><div class="card-top"><span class="card-number">03 · INICIO</span><span class="card-icon card-visual visual-star">✦</span></div><h3>Clases para<br />cachorros</h3><p>Los primeros meses son una aventura. Acompáñala bien.</p></article>
+        <article class="service-card service-card-lilac reveal"><div class="service-card-image"><img src="imagenes/GestionEmocional.png" alt="Perro acompañado durante una sesión de gestión emocional" /></div><div class="card-top"><span class="card-number">04 · CONFIANZA</span><span class="card-icon card-visual visual-paw">✥</span></div><h3>Gestión<br />emocional</h3><p>Herramientas para acompañar miedos, nervios y reactividad.</p></article>
+        <article class="service-card service-card-yellow reveal reveal-delay"><div class="service-card-image"><img src="imagenes/BusquedayRescate.png" alt="Perro participando en un juego de búsqueda y rescate" /></div><div class="card-top"><span class="card-number">05 · EQUIPO</span><span class="card-icon card-visual visual-ball">●</span></div><h3>Juegos de<br />olfato</h3><p>Actividades sencillas para estimular su mente dentro y fuera.</p></article>
+        <article class="service-card service-card-mint reveal reveal-delay-2"><div class="service-card-image"><img src="imagenes/Convivencia.png" alt="Convivencia tranquila entre una persona y su perro en casa" /></div><div class="card-top"><span class="card-number">06 · HOGAR</span><span class="card-icon card-visual visual-home">⌂</span></div><h3>Convivencia<br />en casa</h3><p>Rutinas para descansar, recibir visitas y compartir espacios.</p></article>
       </div><button class="service-arrow service-arrow-next" id="services-next" type="button" aria-label="Ver más servicios">→</button></div>
     </section>
 
